@@ -1,0 +1,34 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<%
+    //session - HttpSession
+    if(request.getParameter("logon") !=null){
+        session.setAttribute("username", request.getParameter("username"));
+        response.sendRedirect(request.getRequestURI());
+    }
+    //Ação para botão de logout - HttpSession
+    if(request.getParameter("logoff") !=null){
+        session.removeAttribute("username");
+        response.sendRedirect(request.getRequestURI());
+    }
+%>
+
+<h1>SessionApp - Aula 09</h1>
+<%if(session.getAttribute("username") !=null){%>
+<form>
+    <a href="index.jsp">Index</a>|
+    <a href="page1.jsp">Page1</a>|
+    <a href="page2.jsp">Page2</a>|
+    Bem-Vindo, <b><%= session.getAttribute("username")%></b>
+        <input type="submit" name="logoff" value="Sair"/>
+</form>
+<hr/>
+
+<%} else {%>
+    <form>
+            <input type="text" name="username"/>
+            <input type="submit" name="logon" value="Entrar"/>
+            
+        </form>
+<%}%>
